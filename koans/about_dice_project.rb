@@ -5,7 +5,17 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class DiceSet
 #   code ...
 # end
-
+class DiceSet
+  attr_reader :values
+  def initialize
+  end
+  def roll(i)
+    @values = []
+    i.times do
+      @values << rand(5)+1
+    end
+  end
+end
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new
@@ -41,13 +51,13 @@ class AboutDiceProject < Neo::Koan
     second_time = dice.values
 
     assert_not_equal first_time, second_time,
-      "Two rolls should not be equal"
+                     "Two rolls should not be equal"
 
     # THINK ABOUT IT:
     #
     # If the rolls are random, then it is possible (although not
     # likely) that two consecutive rolls are equal.  What would be a
-    # better way to test this?
+    # better way to test this.
   end
 
   def test_you_can_roll_different_numbers_of_dice
@@ -59,5 +69,4 @@ class AboutDiceProject < Neo::Koan
     dice.roll(1)
     assert_equal 1, dice.values.size
   end
-
 end
